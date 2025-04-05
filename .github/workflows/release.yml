@@ -1,4 +1,4 @@
-name: Build and Release (Linux)
+name: Build and Release (Linux & Windows)
 
 on:
   push:
@@ -6,30 +6,61 @@ on:
       - 'v*'
 
 jobs:
-  build:
+  build-linux:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.12'
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
 
-    - name: Install dependencies
-      run: |
-        pip install -r requirements.txt
-        pip install pyinstaller
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install pyinstaller
 
-    - name: Run build.sh to create binary
-      run: bash build.sh
+      - name: Build Linux binary
+        run: |
+          pyinstaller --onefile --name git-commit-gen --add-data "prompt_template.yml:." main.py
+          mv dist/git-commit-gen ./git-commit-gen-linux
 
-    - name: Upload Linux executable to GitHub Release
-      uses: softprops/action-gh-release@v2
-      with:
-        name: git-commit-gen
-        files: git-commit-gen
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload Linux binary
+        uses: softprops/action-gh-release@v2
+        with:
+          files: git-commit-gen-linux
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install pyinstaller
+
+      - name: Build Windows binary
+        run: |
+          pyinstaller --onefile --name git-commit-gen.exe --add-data "prompt_template.yml;." main.py
+          Move-Item -Path dist\git-commit-gen.exe -Destination git-commit-gen-win.exe
+        shell: pwsh
+
+      - name: Upload Windows binary
+        uses: softprops/action-gh-release@v2
+        with:
+          files: git-commit-gen-win.exe
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
