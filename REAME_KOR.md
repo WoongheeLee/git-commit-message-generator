@@ -1,4 +1,4 @@
-# 커밋 메시지 생성기
+# 깃 커밋 메시지 생성기
 
 [README (English)](./README.md) | [README_KOR (한국어)](./README_KOR.md)
 
