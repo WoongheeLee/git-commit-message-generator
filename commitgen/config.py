@@ -3,9 +3,9 @@ import json
 import yaml
 
 def load_api_key():
-    path = os.path.join(os.getcwd(), ".api_keys", "openai.json")
+    path = os.path.join(os.path.expanduser("~/.api_keys"), "openai.json")
     if not os.path.exists(path):
-        raise FileNotFoundError("❌ API key file not found: .api_keys/openai.json")
+        raise FileNotFoundError(f"❌ API key file not found: {path}")
     with open(path, "r") as f:
         data = json.load(f) 
         return data["api_key"]
