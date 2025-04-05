@@ -44,10 +44,10 @@ python main.py --language english
 
 ## Setup API Key
 
-OpenAI API key is required. Create the following file:
+OpenAI API key is required. Create the following file in your **home directory**:
 
 ```
-.api_keys/openai.json
+~/.api_keys/openai.json
 ```
 
 ```json

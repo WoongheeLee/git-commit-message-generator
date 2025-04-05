@@ -44,10 +44,10 @@ python main.py --language english
 
 ## API 키 설정
 
-OpenAI API 키가 필요합니다. 다음과 같이 파일을 생성하세요:
+OpenAI API 키가 필요합니다. 다음과 같은 파일을 사용자 홈 디렉토리에 생성하세요:
 
 ```
-.api_keys/openai.json
+~/.api_keys/openai.json
 ```
 
 ```json
