@@ -8,8 +8,7 @@ from commitgen.generator import generate_commit_message
 parser = argparse.ArgumentParser(description="Generate a commit message using GPT.")
 parser.add_argument(
     "-l", "--language",
-    default="english",
-    choices=["english", "korean"],
+    default="korean",
     help="Specify the language for the commit message (default: english)"
 )
 args = parser.parse_args()
