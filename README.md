@@ -1,4 +1,4 @@
-# Commit Message Generator
+# Git Commit Message Generator
 
 [README (English)](./README.md) | [README (한국어)](./README_KOR.md)
 
