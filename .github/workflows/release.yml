@@ -1,0 +1,35 @@
+name: Build and Release (Linux)
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
+
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+        pip install pyinstaller
+
+    - name: Run build.sh
+      run: bash build.sh
+
+    - name: Upload release asset
+      uses: softprops/action-gh-release@v2
+      with:
+        files: git-commit-gen
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
