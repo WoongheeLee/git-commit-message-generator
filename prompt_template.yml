@@ -1,0 +1,12 @@
+commit_format: "<type>(<scope>): <description>"
+commit_type: |
+  - feat: A new feature
+  - fix: A bug fix
+  - docs: Documentation only changes
+  - style: Code style (formatting, missing semicolons, etc.)
+  - refactor: Code changes that neither fix a bug nor add a feature
+  - test: Adding or updating tests
+  - chore: Other changes that don't modify src or test files
+
+  Be concise, use imperative mood (e.g., "add", "fix", "refactor"), and do not include file names unless absolutely necessary.
+  If the scope is unclear, omit it (e.g., `feat: add user login`).
