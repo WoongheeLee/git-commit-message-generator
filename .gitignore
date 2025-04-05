@@ -1,2 +1,5 @@
 .api_keys/
 **/__pycache__/
+*.spec
+*.exe
+dist/
