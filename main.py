@@ -3,6 +3,7 @@ import subprocess
 from commitgen.gitdiff import get_git_diff
 from commitgen.generator import generate_commit_message, LLM_MODEL
 
+
 # --- constant 
 parser = argparse.ArgumentParser(description=f"Generate a commit message using GPT.")
 parser.add_argument(
