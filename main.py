@@ -1,15 +1,19 @@
 import argparse
 import subprocess
 from commitgen.gitdiff import get_git_diff
-from commitgen.generator import generate_commit_message
-
+from commitgen.generator import generate_commit_message, LLM_MODEL
 
 # --- constant 
-parser = argparse.ArgumentParser(description="Generate a commit message using GPT.")
+parser = argparse.ArgumentParser(description=f"Generate a commit message using GPT.")
 parser.add_argument(
     "-l", "--language",
     default="korean",
     help="Specify the language for the commit message (default: english)"
+)
+parser.add_argument(
+    "-m", "--model",
+    default=LLM_MODEL,
+    help=f"Specify the LLM model to use (default: {LLM_MODEL})"
 )
 args = parser.parse_args()
 
@@ -39,10 +43,11 @@ def main():
         print("⚠️ No changes to commit. Please run `git add` first.")
         return
 
-    print(f"🤖 Generating commit message in {args.language}...\n")
+    print(f"🤖 Generating commit message in {args.language} using GPT (model name: {args.model})...\n")
     message = generate_commit_message(
         git_diff_text=git_diff_text,
-        language=args.language
+        language=args.language, 
+        llm_model=LLM_MODEL,
         )
 
     print("\n✅ Generated commit message:\n")
