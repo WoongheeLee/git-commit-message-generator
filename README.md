@@ -100,3 +100,10 @@ Would you like to commit with this message? [Y/n]:
 ## License
 
 [MIT License](./LICENSE)
+
+--- 
+
+## Contributing
+
+Gladly welcoming contributors!  
+Feel free to fork, improve, and send a pull request.

@@ -100,3 +100,10 @@ feat: add CLI option to specify commit message language
 ## 라이선스
 
 [MIT 라이선스](./LICENSE) 기반으로 자유롭게 사용 가능합니다.
+
+--- 
+
+# 기여 안내
+기여자를 항상 환영합니다! 
+
+자유롭게 포크(fork)하여 개선한 뒤, 풀 리퀘스트(pull request)를 보내주세요.
