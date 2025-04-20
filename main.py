@@ -45,11 +45,18 @@ def main():
         return
 
     print(f"🤖 Generating commit message in {args.language} using GPT (model name: {args.model})...\n")
-    message = generate_commit_message(
+    message, usage = generate_commit_message(
         git_diff_text=git_diff_text,
         language=args.language, 
-        llm_model=LLM_MODEL,
-        )
+        llm_model=args.model,
+    )
+
+    print("\n📊 Token usage:")
+    print(f"   - Prompt tokens     : {usage['prompt_tokens']}")
+    print(f"   - Completion tokens : {usage['completion_tokens']}")
+    print(f"   - Total tokens      : {usage['total_tokens']}")
+    print(f"💰 Estimated cost      : ${usage['total_cost']:.5f} USD")
+    print()
 
     print("\n✅ Generated commit message:\n")
     print(message)
