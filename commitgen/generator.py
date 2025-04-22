@@ -6,11 +6,12 @@ from commitgen.config import load_api_key, load_prompt_template
 
 # --- constants
 MODEL_PRICING = {
-    "gpt-4": {"prompt": 0.03, "completion": 0.06},
-    "gpt-4.0": {"prompt": 0.03, "completion": 0.06},
-    "gpt-4.1": {"prompt": 0.03, "completion": 0.06},
-    "gpt-3.5-turbo": {"prompt": 0.0015, "completion": 0.002},
+    "gpt-4.1": {"prompt": 0.002, "completion": 0.008},         # $2.00 / $8.00 per 1M
+    "gpt-4o": {"prompt": 0.005, "completion": 0.020},          # $5.00 / $20.00 per 1M
+    "gpt-4o-mini": {"prompt": 0.0006, "completion": 0.0024},   # $0.60 / $2.40 per 1M
+    "gpt-3.5-turbo": {"prompt": 0.0005, "completion": 0.0015}, # $0.50 / $1.50 per 1M
 }
+
 
 LLM_MODEL = 'gpt-4.1'
 OpenAI_API = load_api_key()
