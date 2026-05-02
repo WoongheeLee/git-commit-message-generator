@@ -32,6 +32,11 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
+case "$(uname -s)" in
+  CYGWIN*|MINGW*|MSYS*) SEP=";" ;;
+  *) SEP=":" ;;
+esac
+
 echo "🛠️  빌드 설정: model=${DEFAULT_MODEL}, language=${DEFAULT_LANGUAGE}, auto_yes=${AUTO_YES}"
 
 cat > build_defaults.json <<EOF
@@ -50,14 +55,14 @@ trap cleanup EXIT
 echo "🚧 Building executable with uv..."
 uv run --group dev pyinstaller --onefile \
   --name "$EXE_NAME" \
-  --add-data "prompt_template.yml:." \
-  --add-data "build_defaults.json:." \
+  --add-data "prompt_template.yml${SEP}." \
+  --add-data "build_defaults.json${SEP}." \
   main.py
 
 echo "📦 Moving executable to current directory..."
-mv -f "dist/$EXE_NAME" ./
+mv -f "dist/$EXE_NAME"* ./
 
 echo "🧹 Cleaning up..."
-rm -rf build dist "$EXE_NAME".spec
+rm -rf build dist "$EXE_NAME"*.spec
 
-echo "✅ Done! Executable: $EXE_NAME (model=${DEFAULT_MODEL}, language=${DEFAULT_LANGUAGE}, auto_yes=${AUTO_YES})"
+echo "✅ Done! (model=${DEFAULT_MODEL}, language=${DEFAULT_LANGUAGE}, auto_yes=${AUTO_YES})"

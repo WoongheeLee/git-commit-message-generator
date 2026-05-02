@@ -11,22 +11,21 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - name: Install uv
+        uses: astral-sh/setup-uv@v4
         with:
-          python-version: '3.12'
+          enable-cache: true
 
-      - name: Install dependencies
-        run: |
-          pip install -r requirements.txt
-          pip install pyinstaller
+      - name: Sync dependencies
+        run: uv sync --group dev
 
       - name: Build Linux binary
-        run: |
-          pyinstaller --onefile --name git-commit-gen --add-data "prompt_template.yml:." main.py
-          mv dist/git-commit-gen ./git-commit-gen-linux
+        run: ./build.sh
+
+      - name: Rename binary for release
+        run: mv git-commit-gen git-commit-gen-linux
 
       - name: Upload Linux binary
         uses: softprops/action-gh-release@v2
@@ -40,23 +39,24 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - name: Install uv
+        uses: astral-sh/setup-uv@v4
         with:
-          python-version: '3.12'
+          enable-cache: true
 
-      - name: Install dependencies
-        run: |
-          pip install -r requirements.txt
-          pip install pyinstaller
+      - name: Sync dependencies
+        run: uv sync --group dev
+        shell: bash
 
       - name: Build Windows binary
-        run: |
-          pyinstaller --onefile --name git-commit-gen.exe --add-data "prompt_template.yml;." main.py
-          Move-Item -Path dist\git-commit-gen.exe -Destination git-commit-gen-win.exe
-        shell: pwsh
+        run: ./build.sh
+        shell: bash
+
+      - name: Rename binary for release
+        run: mv git-commit-gen.exe git-commit-gen-win.exe
+        shell: bash
 
       - name: Upload Windows binary
         uses: softprops/action-gh-release@v2
