@@ -3,4 +3,8 @@
 *.spec
 *.exe
 dist/
+build/
 git-commit-gen
+build_defaults.json
+.venv/
+.claude/
